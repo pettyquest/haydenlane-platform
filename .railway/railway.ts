@@ -18,7 +18,7 @@
 import { defineRailway, github, group, image, preserve, project, service, volume } from "railway/iac";
 
 // The public repository the template builds from; change it to deploy your own fork.
-const REPO = "jviars/crewtavo";
+const REPO = "pettyquest/haydenlane-platform";
 
 export default defineRailway(() => {
   const dbData = volume("db-data");
@@ -166,7 +166,7 @@ export default defineRailway(() => {
     },
   });
 
-  return project("crewtavo", {
+  return project("haydenlane-platform", {
     resources: [...group("Supabase services", [db, auth, rest, storage, dbData, storageData]), app],
   });
 });
