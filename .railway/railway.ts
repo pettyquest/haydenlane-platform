@@ -20,12 +20,17 @@ import { defineRailway, github, group, image, preserve, project, service, volume
 // The public repository the template builds from; change it to deploy your own fork.
 const REPO = "pettyquest/haydenlane-platform";
 
+// Hayden Lane is in Phoenix: run every service, and keep both volumes, in US West (California).
+const REGION = "us-west2";
+const regions = { [REGION]: 1 };
+
 export default defineRailway(() => {
-  const dbData = volume("db-data");
-  const storageData = volume("storage-data");
+  const dbData = volume("db-data", { region: REGION, sizeMB: 50000 });
+  const storageData = volume("storage-data", { region: REGION, sizeMB: 50000 });
 
   // Supabase's Postgres with the roles the other services sign in as (deploy/postgres).
   const db = service("db", {
+    replicas: regions,
     source: github(REPO, { branch: "main" }),
     rootDirectory: "deploy/postgres",
     build: { builder: "DOCKERFILE", dockerfilePath: "Dockerfile", watchPatterns: ["deploy/postgres/**"] },
@@ -43,6 +48,7 @@ export default defineRailway(() => {
   const dbPassword = "${{db.POSTGRES_PASSWORD}}";
 
   const app = service("crewtavo", {
+    replicas: regions,
     source: github(REPO, { branch: "main" }),
     build: { builder: "DOCKERFILE", dockerfilePath: "Dockerfile", watchPatterns: ["apps/**", "packages/**", "supabase/migrations/**", "scripts/**", "Dockerfile", "package-lock.json"] },
     healthcheck: "/api/health",
@@ -62,6 +68,8 @@ export default defineRailway(() => {
       // that instant, mid-request and mid-task. This gives it 30 seconds; it stops as soon as its
       // requests and background tasks have finished (shutdown in apps/api/src/server.ts).
       RAILWAY_DEPLOYMENT_DRAINING_SECONDS: "30",
+      // The dashboard's healthcheck timeout, as the template sets it.
+      RAILWAY_HEALTHCHECK_TIMEOUT_SEC: "600",
       // Optional features (email, texting, payments, maps...): add their variables here.
     },
   });
@@ -69,6 +77,7 @@ export default defineRailway(() => {
   const jwtSecret = "${{crewtavo.JWT_SECRET}}";
 
   const auth = service("auth", {
+    replicas: regions,
     source: image("public.ecr.aws/supabase/gotrue:v2.197.0"),
     env: {
       GOTRUE_API_HOST: "::",
@@ -99,6 +108,7 @@ export default defineRailway(() => {
   });
 
   const rest = service("rest", {
+    replicas: regions,
     source: image("public.ecr.aws/supabase/postgrest:v16.4"),
     env: {
       PGRST_DB_URI: `postgres://authenticator:${dbPassword}@${dbHost}:5432/postgres`,
@@ -140,6 +150,7 @@ export default defineRailway(() => {
   // STORAGE_BACKEND set to "file" and STORAGE_S3_BUCKET to "crewtavo" (the volume's folder; left
   // on the bucket's name, storage looks for every file in the wrong place).
   const storage = service("storage", {
+    replicas: regions,
     source: image("public.ecr.aws/supabase/storage-api:v1.82.1"),
     volumeMounts: { "/var/lib/storage": storageData },
     env: {
