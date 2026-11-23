@@ -21,6 +21,7 @@ export const TERMS: Record<string, string> = {
   "New property": "New lot",
   "Add property": "Add lot",
   Requests: "Work requests",
+  "New request": "New work request",
   Quotes: "Bids",
   Quote: "Bid",
   "New quote": "New bid",

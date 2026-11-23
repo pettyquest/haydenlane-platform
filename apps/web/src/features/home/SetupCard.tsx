@@ -5,6 +5,7 @@
  * measuring for work priced by area or length. Each step ticks itself off once it's been done
  * (one small read finds out), the card goes when every step is done, and anyone can hide it for good.
  */
+import { BRAND } from "@crewtavo/core/brand";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -156,7 +157,7 @@ export function SetupCard() {
     // Its check usually lands after the rest of Home, so it fades in rather than popping in.
     <section className="stack" aria-labelledby="setup-title" style={{ animation: "fade-in var(--dur-enter) var(--ease-enter)" }}>
       <div className="section-head">
-        <h2 id="setup-title" className="section-title">Set up Crewtavo</h2>
+        <h2 id="setup-title" className="section-title">Set up {BRAND.name}</h2>
         <span className="muted small">{done} of {list.length} done</span>
         <Button size="sm" variant="ghost" onClick={hide}>Hide</Button>
       </div>

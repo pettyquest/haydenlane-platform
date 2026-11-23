@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { term } from "@/brand/terms";
 import { useLayoutEffect, useMemo, useRef, type RefObject } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatedNumber, MONEY } from "@/components/ui/AnimatedNumber";
@@ -109,8 +110,8 @@ export function HomePage() {
         </div>
         {isOffice && (
           <div className="page-actions">
-            <Link className="btn" to="/requests?new=1"><Icon name="requests" size={16} />New request</Link>
-            <Link className="btn btn-primary" to="/quotes?new=1"><Icon name="plus" size={16} />New quote</Link>
+            <Link className="btn" to="/requests?new=1"><Icon name="requests" size={16} />{term("New request")}</Link>
+            <Link className="btn btn-primary" to="/quotes?new=1"><Icon name="plus" size={16} />{term("New quote")}</Link>
           </div>
         )}
       </div>

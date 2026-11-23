@@ -42,7 +42,7 @@ if (!/localhost|127\.0\.0\.1/.test(BASE) && process.env.HL_ALLOW_REMOTE !== "1")
 
 const preset = JSON.parse(readFileSync(new URL("../packages/core/src/presets/drywall_paint.json", import.meta.url), "utf8"));
 const config = await (await fetch(`${BASE}/api/config`)).json();
-const db = createClient(config.supabaseUrl ?? BASE, config.supabaseKey, { auth: { persistSession: false } });
+const db = createClient(config.supabaseUrl || BASE, config.supabaseKey, { auth: { persistSession: false } });
 
 const b64 = (s) => Buffer.from(s).toString("base64url");
 function serviceKey() {
@@ -50,7 +50,7 @@ function serviceKey() {
   const body = b64(JSON.stringify({ role: "service_role", iss: "supabase", iat: Math.floor(Date.now() / 1000), exp: Math.floor(Date.now() / 1000) + 3600 }));
   return `${head}.${body}.${createHmac("sha256", SECRET).update(`${head}.${body}`).digest("base64url")}`;
 }
-const admin = SECRET ? createClient(config.supabaseUrl ?? BASE, serviceKey(), { auth: { persistSession: false } }) : null;
+const admin = SECRET ? createClient(config.supabaseUrl || BASE, serviceKey(), { auth: { persistSession: false } }) : null;
 const DEFAULTS = { defaultToNull: false };
 
 async function must(promise, what) {
