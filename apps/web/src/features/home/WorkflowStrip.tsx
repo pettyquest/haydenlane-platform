@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { term } from "@/brand/terms";
 import { AnimatedNumber, moneyCompact } from "@/components/ui/AnimatedNumber";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { statusText } from "@/components/ui/StatusPill";
@@ -67,7 +68,7 @@ export function WorkflowStrip({ workflow, showInvoices = true }: { workflow: Das
             {i > 0 && <span className={styles.chevron} aria-hidden="true"><Icon name="chevronRight" size={12} /></span>}
             <span className={styles.label} style={{ color: col.textColor }}>
               <span style={{ color: col.color }}><Icon name={col.icon} /></span>
-              {col.label}
+              {term(col.label)}
             </span>
             <span>
               <span className={styles.countRow}>
