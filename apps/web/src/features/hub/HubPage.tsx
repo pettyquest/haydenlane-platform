@@ -10,6 +10,7 @@
  *             paid, "Pay automatically next time?" and, after an automatic charge, a tip on that card
  * Quotes and invoices print as the business's estimate template. Add ?print=1 to print or save a PDF.
  */
+import { BRAND } from "@crewtavo/core/brand";
 import { greetingName } from "@crewtavo/core/automations";
 import { notIncludedText } from "@crewtavo/core/estimates";
 import { lineTotal } from "@crewtavo/core/money";
@@ -280,7 +281,7 @@ export function HubPage() {
             <footer className="public-foot hub-foot">
               <span><Icon name="lock" size={12} /> Private link{clientName ? ` for ${clientName}` : ""}. Keep it to yourself.</span>
               {d.company.privacy_url && <span><PrivacyLink url={d.company.privacy_url} /></span>}
-              <span className="hub-powered">Powered by <BrandMark size={13} /> <strong>Crewtavo</strong></span>
+              <span className="hub-powered"><BrandMark size={13} /> <strong>{BRAND.product}</strong>, based on Crewtavo</span>
             </footer>
           </>
         )}

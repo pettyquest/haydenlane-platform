@@ -8,10 +8,16 @@ import { startLocale, tellIfSpanishDidntLoad } from "./lib/i18n";
 import { registerServiceWorker } from "./lib/push";
 import { initTheme } from "./lib/theme";
 import "@fontsource-variable/figtree";
+import { installWording } from "./brand/terms";
 import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/components.css";
 import "./styles/features.css";
+// Hayden Lane fork: the brand theme goes last, so its tokens win (src/brand/theme.css).
+import "./brand/theme.css";
+
+// Hayden Lane's words (Builders, Lots, Bids) and product name, before anything is drawn.
+installWording();
 
 // Start fetching settings right away: it also turns on error reporting, client pages included.
 loadConfig().catch(() => undefined);

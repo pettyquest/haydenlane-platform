@@ -3,6 +3,7 @@
  * kind of business. Adding a trade means adding a JSON file here and to PRESETS.
  */
 import cleaning from "./presets/cleaning.json";
+import drywallPaint from "./presets/drywall_paint.json";
 import electrical from "./presets/electrical.json";
 import general from "./presets/general.json";
 import handyman from "./presets/handyman.json";
@@ -169,6 +170,7 @@ export interface TradePreset {
 export const PRESETS: Record<string, TradePreset> = {
   general: general as TradePreset,
   cleaning: cleaning as TradePreset,
+  drywall_paint: drywallPaint as TradePreset,
   electrical: electrical as TradePreset,
   handyman: handyman as TradePreset,
   hvac: hvac as TradePreset,

@@ -56,6 +56,7 @@ const TAGLINES: Record<string, string> = {
   hvac: "Heating · Cooling · Maintenance plans",
   electrical: "Repairs · Panels · EV chargers",
   handyman: "Repairs · Installs · Odd jobs",
+  drywall_paint: "Hang · Tape · Texture · Paint",
   cleaning: "Homes · Offices · Move-outs",
   pool_service: "Weekly service · Openings · Repairs",
   pest_control: "Pest plans · Termites · Rodents",

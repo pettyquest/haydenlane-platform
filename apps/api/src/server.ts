@@ -25,6 +25,8 @@ import { fileURLToPath } from "node:url";
 import { serve, type HttpBindings } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { Hono, type Context } from "hono";
+import { brandText } from "@crewtavo/core/brand";
+import { setWording } from "@crewtavo/core/i18n";
 import { app } from "./app";
 import { readEnv } from "./env";
 import { forwardTo } from "./lib/address";
@@ -38,6 +40,10 @@ import { startMonitoring } from "./lib/monitoring-node";
 import { stackServices, withStack } from "./lib/stack";
 import { retryStartup, setStartup, startup, whenIdle, worthRetrying, type Startup } from "./lib/startup";
 import { CRON_TASKS, runTask, type TaskName } from "./tasks";
+
+// Hayden Lane fork: what the server writes (emails, texts, notifications) names this product, not
+// upstream's (packages/core/src/brand.ts).
+setWording({ rename: brandText });
 
 const here = dirname(fileURLToPath(import.meta.url));
 const staticDir = process.env.CREWTAVO_STATIC_DIR ?? join(here, "public");

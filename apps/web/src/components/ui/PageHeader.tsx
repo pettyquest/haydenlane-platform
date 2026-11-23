@@ -1,13 +1,15 @@
 import { useEffect, type ReactNode } from "react";
+import { BRAND } from "@crewtavo/core/brand";
+import { t } from "@/lib/i18n";
 import { Link } from "react-router-dom";
 import { Icon } from "./Icon";
 
-/** Sets the browser tab title, e.g. "Quotes · Crewtavo". */
+/** Sets the browser tab title, e.g. "Quotes · Hayden Lane" (BRAND in packages/core/src/brand.ts). */
 export function useDocumentTitle(title: string | null | undefined) {
   useEffect(() => {
     if (!title) return;
     const previous = document.title;
-    document.title = `${title} · Crewtavo`;
+    document.title = `${t(title)} · ${BRAND.name}`;
     return () => {
       document.title = previous;
     };

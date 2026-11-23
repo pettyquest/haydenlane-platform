@@ -2,6 +2,7 @@
  * The Crewtavo Terms and license this server runs, open to anyone (/license). Intuit asks a
  * business's own QuickBooks app for a license agreement address, and this is it (AppKeysCard).
  */
+import { BRAND } from "@crewtavo/core/brand";
 import { useEffect } from "react";
 import { AuthLayout } from "@/features/auth/LoginPage";
 import authStyles from "@/features/auth/auth.module.css";
@@ -9,7 +10,7 @@ import { LicenseNotice, TermsSummary, TermsText } from "@/features/legal/License
 
 export function LicensePage() {
   useEffect(() => {
-    document.title = "Crewtavo Terms and License";
+    document.title = `Crewtavo Terms and License · ${BRAND.product}`;
   }, []);
   return (
     <AuthLayout>

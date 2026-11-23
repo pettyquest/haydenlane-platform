@@ -51,6 +51,19 @@ export function addCatalog(locale: Locale, lines: Catalog) {
   catalogs[locale] = { ...catalogs[locale], ...lines };
 }
 
+/**
+ * A fork's own wording on top of every language (Hayden Lane fork, src/brand.ts): `english` holds
+ * English replacements keyed like a catalog ("Clients" -> "Builders"), and `rename` runs over every
+ * finished line (the product name). Only the apps call it at start-up; tests run without it.
+ */
+let english_: Catalog = {};
+let rename: ((text: string) => string) | null = null;
+export function setWording(options: { english?: Catalog; rename?: (text: string) => string }) {
+  if (options.english) english_ = { ...english_, ...options.english };
+  if (options.rename) rename = options.rename;
+}
+const worded = (text: string) => (rename ? rename(text) : text);
+
 export const hasCatalog = (locale: Locale) => locale === "en" || Boolean(catalogs[locale]);
 
 /** Between a context and its text, in a key made at run time by msg(text, context). */
@@ -95,21 +108,23 @@ function split(text: string, context?: string): { english: string; key: string }
 function translate(locale: Locale, text: string, params?: Params): string {
   if (text == null) return text;
   const { english, key } = split(String(text), params?.context);
-  if (locale === "en") return fill(english, params);
+  const own = english_[key];
+  const base = typeof own === "string" ? own : english;
+  if (locale === "en") return worded(fill(base, params));
   const line = catalogs[locale]?.[key];
-  const filled = fill(typeof line === "string" ? line : english, params);
-  return locale === "es" && params ? oneOClock(filled) : filled;
+  const filled = fill(typeof line === "string" ? line : base, params);
+  return worded(locale === "es" && params ? oneOClock(filled) : filled);
 }
 
 function plural(locale: Locale, count: number, forms: PluralForms, params?: Params): string {
   const values = { count: String(count), ...params };
   const english = pluralRule("en", count) === "one" ? forms.one : forms.other;
-  if (locale === "en") return fill(english, values);
+  if (locale === "en") return worded(fill(english, values));
   const key = params?.context ? `${params.context}${CONTEXT_SEPARATOR}${forms.other}` : forms.other;
   const line = catalogs[locale]?.[key];
-  if (!line || typeof line === "string") return fill(english, values);
+  if (!line || typeof line === "string") return worded(fill(english, values));
   const form = pluralRule(locale, count);
-  return oneOClock(fill(line[form as keyof PluralForms] ?? line.other, values));
+  return worded(oneOClock(fill(line[form as keyof PluralForms] ?? line.other, values)));
 }
 
 let choosing = false;

@@ -97,6 +97,11 @@ export const TRADE_TERMS: Record<string, string> = {
   hvac: GENERAL_TERMS,
   electrical: GENERAL_TERMS,
   handyman: GENERAL_TERMS,
+  // Hayden Lane fork: production builders, billed per lot against the builder's PO, on its terms.
+  drywall_paint:
+    "Payment: per the builder's purchase order (PO/EPO) and payment terms, invoiced when each lot's work is complete.\n" +
+    "Changes: extra work needs an added PO from the builder before it's done.\n" +
+    "Warranty: one-year workmanship warranty on drywall and paint.",
   // Recurring visits and plans bill like lawn.
   cleaning:
     "Payment: due after each cleaning, or charged to your card on file if you're on autopay.\n" +
