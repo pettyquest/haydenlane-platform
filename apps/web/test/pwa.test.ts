@@ -87,7 +87,7 @@ const hex = (color: string) => {
 describe("the manifest", () => {
   it("names the app once, for everything under it, and describes it to app stores and install sheets", () => {
     expect(manifest).toMatchObject({ id: "/", start_url: "/", scope: "/", display: "standalone", lang: "en" });
-    expect(manifest.description).toMatch(/service businesses/);
+    expect(manifest.description).toMatch(/Hayden Lane Drywall/); // Hayden Lane fork
     expect(manifest.categories).toEqual(expect.arrayContaining(["business", "productivity"]));
   });
 
@@ -167,7 +167,7 @@ describe("the first paint", () => {
   });
 
   it("names the app on an iPhone's Home Screen and draws under the notch and home indicator", () => {
-    expect(head).toContain('<meta name="apple-mobile-web-app-title" content="Crewtavo" />');
+    expect(head).toContain('<meta name="apple-mobile-web-app-title" content="Hayden Lane" />'); // Hayden Lane fork
     expect(head).toMatch(/<meta name="apple-mobile-web-app-status-bar-style" content="default" \/>/);
     expect(head).toMatch(/<meta name="viewport" content="[^"]*viewport-fit=cover/);
     // With viewport-fit=cover, the bars and the screen keep clear of the safe areas themselves.

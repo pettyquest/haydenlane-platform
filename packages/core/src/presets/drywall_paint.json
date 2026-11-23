@@ -1,0 +1,64 @@
+{
+  "id": "drywall_paint",
+  "name": "Drywall & Paint (production builders)",
+  "description": "Drywall and paint subs to production homebuilders: per-lot contract work (hang, tape, texture, paint) against builder POs, plus hourly customer-service and warranty work.",
+  "services": [
+    { "name": "Hang drywall (board sq ft)", "unit": "sq ft", "unit_price": 0.62, "unit_cost": 0.41, "category": "Drywall - contract" },
+    { "name": "Tape and finish (board sq ft)", "unit": "sq ft", "unit_price": 0.48, "unit_cost": 0.29, "category": "Drywall - contract" },
+    { "name": "Texture, orange peel (board sq ft)", "unit": "sq ft", "unit_price": 0.15, "unit_cost": 0.08, "category": "Drywall - contract" },
+    { "name": "Texture, knockdown (board sq ft)", "unit": "sq ft", "unit_price": 0.18, "unit_cost": 0.09, "category": "Drywall - contract" },
+    { "name": "Corner bead and trims", "unit": "lot", "unit_price": 240, "unit_cost": 150, "category": "Drywall - contract" },
+    { "name": "Garage firetape", "unit": "lot", "unit_price": 385, "unit_cost": 210, "category": "Drywall - contract" },
+    { "name": "Drywall stocking and delivery", "unit": "lot", "unit_price": 175, "unit_cost": 120, "category": "Drywall - contract" },
+    { "name": "Scrap-out and clean", "unit": "lot", "unit_price": 140, "unit_cost": 85, "category": "Drywall - contract" },
+    { "name": "Interior paint, walls (floor sq ft)", "unit": "sq ft", "unit_price": 0.95, "unit_cost": 0.6, "category": "Paint - contract" },
+    { "name": "Interior paint, ceilings (floor sq ft)", "unit": "sq ft", "unit_price": 0.32, "unit_cost": 0.19, "category": "Paint - contract" },
+    { "name": "Doors and trim enamel", "unit": "lot", "unit_price": 690, "unit_cost": 420, "category": "Paint - contract" },
+    { "name": "Exterior paint, body and trim", "unit": "lot", "unit_price": 2150, "unit_cost": 1380, "category": "Paint - contract" },
+    { "name": "Option: accent wall", "unit": "each", "unit_price": 145, "unit_cost": 70, "category": "Paint - contract" },
+    { "name": "Customer service labor", "unit": "hr", "unit_price": 68, "unit_cost": 34, "category": "Customer service / warranty" },
+    { "name": "Customer service trip", "unit": "visit", "unit_price": 45, "unit_cost": 20, "category": "Customer service / warranty" },
+    { "name": "Drywall repair materials", "unit": "lump sum", "unit_price": 35, "category": "Customer service / warranty" },
+    { "name": "Paint touch-up materials", "unit": "lump sum", "unit_price": 25, "category": "Customer service / warranty" },
+    { "name": "Warranty / punch (non-billable)", "unit": "hr", "unit_price": 0, "unit_cost": 34, "category": "Customer service / warranty" }
+  ],
+  "formulas": [],
+  "checklists": [
+    {
+      "name": "Drywall lot sign-off",
+      "services": ["Hang drywall (board sq ft)", "Tape and finish (board sq ft)", "Texture, orange peel (board sq ft)", "Texture, knockdown (board sq ft)"],
+      "items": [
+        { "key": "board_count_matches_stock", "label": "Board count matches the stock sheet", "type": "check", "required": true },
+        { "key": "firetape_done", "label": "Garage firetape complete", "type": "check", "required": true },
+        { "key": "texture_matches_plan", "label": "Texture matches the plan (orange peel / knockdown)", "type": "check", "required": true },
+        { "key": "scrap_out", "label": "Scrap hauled out, lot swept", "type": "check", "required": true },
+        { "key": "super_walk", "label": "Walked with the superintendent", "type": "check", "required": false },
+        { "key": "after_photo", "label": "Photo of finished rooms", "type": "photo", "required": true }
+      ]
+    },
+    {
+      "name": "Customer service visit",
+      "services": ["Customer service labor", "Customer service trip", "Warranty / punch (non-billable)"],
+      "items": [
+        { "key": "work_order", "label": "Builder work order / PO # (if any)", "type": "text", "required": false },
+        { "key": "asked_by", "label": "Who asked for the work (superintendent)", "type": "text", "required": true },
+        { "key": "extra_work", "label": "Did the superintendent ask for anything not on the work order?", "type": "choice", "required": true, "options": ["No", "Yes - PO requested", "Yes - no PO yet"] },
+        { "key": "before_photo", "label": "Before photo", "type": "photo", "required": true },
+        { "key": "after_photo", "label": "After photo", "type": "photo", "required": true }
+      ]
+    }
+  ],
+  "intake_forms": [],
+  "weather_rules": [],
+  "custom_fields": [
+    { "key": "work_type", "label": "Work type", "type": "choice", "records": ["quote", "job", "invoice"], "choices": ["Contract", "Customer service", "Warranty"], "show_on_pdf": true },
+    { "key": "builder_po", "label": "Builder PO / EPO #", "type": "text", "records": ["quote", "job", "invoice"], "show_on_pdf": true, "show_in_portal": true },
+    { "key": "superintendent", "label": "Superintendent", "type": "text", "records": ["job", "invoice"], "show_on_pdf": true },
+    { "key": "builder_status", "label": "Builder approval", "type": "choice", "records": ["invoice"], "choices": ["Not submitted", "Submitted - awaiting approval", "Approved", "Disputed", "Needs rec #"] },
+    { "key": "billing_portal", "label": "Billing portal", "type": "choice", "records": ["client"], "choices": ["Hyphen SupplyPro", "Hyphen BuildPro", "Builder portal", "Email"] },
+    { "key": "community", "label": "Community", "type": "text", "records": ["property", "job"], "show_on_pdf": true },
+    { "key": "lot", "label": "Lot #", "type": "text", "records": ["property", "job"], "show_on_pdf": true },
+    { "key": "plan", "label": "Plan", "type": "text", "records": ["property", "job"] }
+  ],
+  "sop_categories": ["Drywall", "Paint", "Customer service", "Builder billing", "Safety"]
+}

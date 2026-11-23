@@ -16,6 +16,7 @@
     "@docx-editor.dev/core": "2.29.0",
     "@docx-editor.dev/fonts": "2.29.0",
     "@docx-editor.dev/react": "2.29.0",
+    "@fontsource-variable/archivo": "5.3.0",
     "@fontsource-variable/figtree": "5.3.0",
     "@formkit/auto-animate": "0.10.0",
     "@number-flow/react": "0.6.2",

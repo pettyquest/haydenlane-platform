@@ -4,6 +4,7 @@
  * Whoever sets up a business agrees to the terms in OnboardingPage; an owner or admin of a business
  * that hasn't agreed to this version sees TermsPage once (lib/session.tsx).
  */
+import { BRAND } from "@crewtavo/core/brand";
 import { TERMS_VERSION } from "@crewtavo/core/terms";
 import { useMutation } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
@@ -24,7 +25,7 @@ export { LICENSE_TEXT, NOTICE_TEXT, TERMS_TEXT, TERMS_VERSION };
  * Where this version's source code is. The AGPL asks anyone running a modified Crewtavo for others to
  * offer them its source (section 13): a modified version points this at its own.
  */
-export const SOURCE_URL = "https://github.com/jviars/crewtavo";
+export const SOURCE_URL = BRAND.sourceUrl;
 
 /**
  * TERMS and NOTICE are wrapped at 100 characters for reading as files. Joins each paragraph's
@@ -78,7 +79,7 @@ export function LicenseNotice() {
   return (
     <div className="stack-sm" style={{ gap: 10 }}>
       <span className="muted small">
-        Copyright (C) 2026 Joshua Viars. Crewtavo is free software under the GNU Affero General Public License, version 3, with the additional terms in its notice, and comes with no warranty. <a href={SOURCE_URL} target="_blank" rel="noopener noreferrer">Source code</a>
+        {BRAND.product} is a modified version of Crewtavo (<a href={BRAND.upstream.url} target="_blank" rel="noopener noreferrer">original source</a>), not an official Crewtavo release. Crewtavo is Copyright (C) 2026 Joshua Viars. Crewtavo is free software under the GNU Affero General Public License, version 3, with the additional terms in its notice, and comes with no warranty; this modified version is offered under the same license. <a href={SOURCE_URL} target="_blank" rel="noopener noreferrer">Source code of this version</a>
         {" · "}<a href="/licenses.txt" target="_blank" rel="noopener noreferrer">Open-source licenses</a>
       </span>
       <details className="more-options">

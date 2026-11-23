@@ -1,0 +1,175 @@
+/*
+ * Hayden Lane theme layer: the one stylesheet to edit for a reskin.
+ *
+ * Loaded last in src/main.tsx, after styles/tokens.css, so these values win over upstream's.
+ * Layer 1 is the --hl-* brand tokens from 04-brand/tokens.css (Hayden Lane brand guide v1.0).
+ * Layer 2 maps them onto the app's own variable names (--ink, --green-solid, --ring ...), so
+ * components reskin without edits. Layer 3 is a few rules for things upstream hard-codes.
+ *
+ * Dark mode is the `dark` class on <html> (src/lib/theme.ts), which already follows the person's
+ * choice or the system setting, so there's no prefers-color-scheme block here.
+ */
+@import "@fontsource-variable/archivo/wdth.css";
+
+/* ------------------------------------------------------------------ 1. brand tokens: light */
+:root {
+  --hl-logo-green: #57BD28;   /* logo artwork only, never UI fills */
+  --hl-logo-lime: #D2E907;
+
+  --hl-primary: #3B7D23;      /* white text 5.07:1 */
+  --hl-primary-hover: #336C1E;
+  --hl-primary-active: #2C611A;
+  --hl-on-primary: #FFFFFF;
+  --hl-primary-tint: #F1F6F0;
+  --hl-primary-tint-2: #E0EADC;
+  --hl-primary-text: #3B7D23;
+  --hl-primary-text-strong: #336C1E;
+
+  --hl-bg: #FFFFFF;
+  --hl-ground: #F5F4F0;
+  --hl-ground-hover: #ECEBE6;
+  --hl-surface: #FFFFFF;
+  --hl-fill: #FAF9F6;
+  --hl-surface-2: #F2F1ED;
+  --hl-fill-3: #E9E8E3;
+  --hl-border: #E3E1DB;
+  --hl-border-strong: #868E96;
+  --hl-divider: #F1F0EC;
+  --hl-overlay: rgba(17, 22, 20, 0.45);
+
+  --hl-text: #111614;
+  --hl-text-2: #4A524D;
+  --hl-muted: #636B66;
+
+  --hl-success: #1F6B3A;  --hl-success-tint: #E6F3EA;
+  --hl-warning: #8A4A00;  --hl-warning-tint: #FBF1E2;
+  --hl-danger: #B42318;   --hl-danger-tint: #FDECEA;
+  --hl-info: #2357A8;     --hl-info-tint: #E8F0FB;
+  --hl-approved: #1D6B66; --hl-approved-tint: #E3F3F1;
+
+  --hl-ring: 0 0 0 3px rgba(59, 125, 35, 0.30);
+
+  --hl-font-display: "Archivo Variable", "Archivo", "Arial Black", Arial, Helvetica, sans-serif;
+  --hl-font-body: "Figtree Variable", "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --hl-radius-sm: 4px;
+  --hl-radius-md: 6px;
+  --hl-radius-lg: 10px;
+
+  --hl-shadow-xs: 0 1px 2px rgba(17, 22, 20, 0.05);
+  --hl-shadow-sm: 0 1px 3px rgba(17, 22, 20, 0.08), 0 1px 2px rgba(17, 22, 20, 0.04);
+  --hl-shadow-md: 0 8px 20px -6px rgba(17, 22, 20, 0.14), 0 2px 6px -2px rgba(17, 22, 20, 0.06);
+  --hl-shadow-lg: 0 28px 56px -16px rgba(17, 22, 20, 0.30), 0 10px 20px -10px rgba(17, 22, 20, 0.12);
+}
+
+/* ------------------------------------------------------------------ 1. brand tokens: dark */
+:root.dark {
+  --hl-primary: #3B7D23;      /* fills keep the same green and white text */
+  --hl-primary-hover: #336C1E;
+  --hl-primary-active: #2C611A;
+  --hl-primary-tint: #1E2A1A;
+  --hl-primary-tint-2: #22331B;
+  --hl-primary-text: #80AA70; /* 6.57:1 on surface */
+  --hl-primary-text-strong: #93B886;
+
+  --hl-bg: #111110;
+  --hl-ground: #141513;
+  --hl-ground-hover: #22241F;
+  --hl-surface: #191A18;
+  --hl-fill: #1F201E;
+  --hl-surface-2: #282A27;
+  --hl-fill-3: #31332F;
+  --hl-border: #363934;
+  --hl-border-strong: #6B7068;
+  --hl-divider: #262825;
+  --hl-overlay: rgba(0, 0, 0, 0.6);
+
+  --hl-text: #ECEDEB;
+  --hl-text-2: #C5C9C4;
+  --hl-muted: #8C928B;
+
+  --hl-success: #63C98A;  --hl-success-tint: #15291D;
+  --hl-warning: #F2B866;  --hl-warning-tint: #33270F;
+  --hl-danger: #FF8A80;   --hl-danger-tint: #3A1C1A;
+  --hl-info: #8AB4F8;     --hl-info-tint: #1A2840;
+  --hl-approved: #5FD1C3; --hl-approved-tint: #11302D;
+
+  --hl-ring: 0 0 0 3px rgba(128, 170, 112, 0.40);
+
+  --hl-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --hl-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --hl-shadow-md: 0 8px 20px -6px rgba(0, 0, 0, 0.55), 0 2px 6px -2px rgba(0, 0, 0, 0.4);
+  --hl-shadow-lg: 0 28px 56px -16px rgba(0, 0, 0, 0.75), 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------------------------------------------ 2. the app's variables
+ * Listed under :root.dark too, so they beat upstream's `:root.dark { --ink: var(--sand-12) }`.
+ * They're var() references, so they follow light and dark by themselves.
+ */
+:root,
+:root.dark {
+  --font: var(--hl-font-body);
+  --font-display: var(--hl-font-display);
+
+  --ink: var(--hl-text);
+  --text-2: var(--hl-text-2);
+  --text-3: var(--hl-muted);
+  --text-4: var(--hl-muted);
+
+  --ground: var(--hl-ground);
+  --ground-hover: var(--hl-ground-hover);
+  --ground-border: var(--hl-border);
+  --page: var(--hl-bg);
+  --surface: var(--hl-surface);
+  --fill: var(--hl-fill);
+  --fill-2: var(--hl-surface-2);
+  --fill-3: var(--hl-fill-3);
+  --border: var(--hl-border);
+  --border-strong: var(--hl-border-strong);
+  --row-divider: var(--hl-divider);
+  --overlay: var(--hl-overlay);
+  --brand-ink: var(--hl-text);
+
+  --green: var(--hl-primary-text);
+  --green-dark: var(--hl-primary-text-strong);
+  --green-tint: var(--hl-primary-tint);
+  --green-tint-2: var(--hl-primary-tint-2);
+  --green-solid: var(--hl-primary);
+  --green-solid-hover: var(--hl-primary-hover);
+
+  --danger: var(--hl-danger);
+  --danger-tint: var(--hl-danger-tint);
+  --danger-solid: #B42318;
+  --danger-solid-hover: #912018;
+  --warning: var(--hl-warning);
+  --warning-tint: var(--hl-warning-tint);
+  --info: var(--hl-info);
+  --info-tint: var(--hl-info-tint);
+
+  --radius-sm: var(--hl-radius-sm);
+  --radius-control: var(--hl-radius-md);
+  --radius-card: var(--hl-radius-lg);
+
+  --shadow-xs: var(--hl-shadow-xs);
+  --shadow-sm: var(--hl-shadow-sm);
+  --shadow-md: var(--hl-shadow-md);
+  --shadow-lg: var(--hl-shadow-lg);
+  --ring: var(--hl-ring);
+}
+/* The neutral "solid" (toasts, tooltips, dark buttons) is Hayden Lane ink, not upstream's navy. */
+:root { --solid: #111614; --solid-hover: #2A302D; --avatar: #111614; }
+
+/* ------------------------------------------------------------------ 3. rules */
+/* Archivo for headings, the page title and the wordmark; Figtree stays the body face. */
+h1, h2, h3, .page-title, .brand-name { font-family: var(--font-display); font-stretch: 112%; }
+.page-title { letter-spacing: -0.02em; }
+
+/* One green: every selected or "on" state is Hayden Lane Green with white text, never black. */
+.tab[aria-pressed="true"], .tab[aria-selected="true"] { background: var(--green-solid); border-color: var(--green-solid); color: #fff; }
+.tabs[data-indicator]::before { background: var(--green-solid); }
+.btn-primary { box-shadow: 0 1px 2px rgba(44, 97, 26, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12); }
+
+/* The mark: the logo is drawn on black, so it always sits in a black rounded tile. */
+.hl-mark { display: inline-block; flex: none; border-radius: 22%; background: #000; object-fit: cover; }
+.brand { gap: 10px; }
+.brand-name { font-weight: 700; letter-spacing: -0.01em; }

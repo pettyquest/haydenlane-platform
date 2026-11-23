@@ -762,6 +762,13 @@ export const TRADE_SAMPLES: Record<string, DocumentData> = {
     ["Termite inspection", 1, "visit", 95],
     ["Rodent bait station", 4, "ea", 45],
   ], SAMPLE_CLIENT),
+  drywall_paint: sample([
+    ["Hang drywall (board sq ft)", 6240, "sq ft", 0.62, "Edgewood Lot 51, Plan 2071"],
+    ["Tape and finish (board sq ft)", 6240, "sq ft", 0.48],
+    ["Texture, knockdown (board sq ft)", 6240, "sq ft", 0.18],
+    ["Corner bead and trims", 1, "lot", 240],
+    ["Scrap-out and clean", 1, "lot", 140],
+  ], { client: { name: "Desert Mesa Homes", lines: ["Edgewood - Lot 51", "Maricopa, AZ 85138"] }, deposit: null }),
   handyman: sample([
     ["TV wall mount", 1, "ea", 149, "Wires hidden in a paintable cover"],
     ["Drywall patch, up to 1 ft", 2, "ea", 150],

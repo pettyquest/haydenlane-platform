@@ -5,6 +5,7 @@
  * the business's own branding. The same pages are listed in index.html, lib/i18n.tsx, lib/install.ts
  * and public/sw.js, and test/clientPages.test.ts holds every list to the routes.
  */
+import { BRAND } from "@crewtavo/core/brand";
 import { useSyncExternalStore } from "react";
 
 export type ThemeChoice = "light" | "dark" | "system";
@@ -28,7 +29,7 @@ let choice = stored();
 function apply() {
   const dark = !CLIENT_FACING.test(window.location.pathname) && (choice === "dark" || (choice === "system" && media.matches));
   document.documentElement.classList.toggle("dark", dark);
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", dark ? "#191918" : "#F6F5F1");
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", dark ? BRAND.themeColor.dark : BRAND.themeColor.light);
 }
 
 function changed() {

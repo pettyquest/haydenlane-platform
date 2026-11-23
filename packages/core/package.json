@@ -9,6 +9,7 @@
     "./geo": "./src/geo.ts",
     "./paving": "./src/paving.ts",
     "./presets": "./src/presets.ts",
+    "./brand": "./src/brand.ts",
     "./roofPlanes": "./src/roofPlanes.ts",
     "./roofing": "./src/roofing.ts",
     "./imagery": "./src/imagery.ts",

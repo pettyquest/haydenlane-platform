@@ -12,6 +12,7 @@
  * (its .tsx and .module.css) both. The tests check the words and where key things land, not that the
  * two look alike.
  */
+import { BRAND } from "@crewtavo/core/brand";
 import { companySignatureLabel, documentColor, letterheadSrc, ownLetterhead, printsFullSheet, type LetterheadPicture, type TemplateSettings } from "@crewtavo/core/documents";
 import { Document, Image, Page, Text, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
@@ -177,7 +178,7 @@ export function DocumentPdf({ template, company, data, pictures, font, currency,
   const signs = estimate && signsAnything(template, data.signatures);
 
   return (
-    <Document title={data.number ? `${kind} ${data.number}` : kind} author={company.name} creator="Crewtavo" producer="Crewtavo">
+    <Document title={data.number ? `${kind} ${data.number}` : kind} author={company.name} creator={BRAND.product} producer={BRAND.product}>
       <Page size="LETTER" style={{ paddingTop: px(top), paddingBottom: px(bottom), paddingHorizontal: px(g.box + g.pad), fontFamily: look.font, color: INK }}>
         <RunningHeader company={company} kind={kind} number={data.number} g={g} />
         <Footer template={template} own={own.footer} picture={pic(own.footer && letterheadSrc(own.footer.path))} words={words} g={g} look={look} />
